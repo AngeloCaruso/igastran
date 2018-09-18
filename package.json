@@ -12,7 +12,7 @@
     "morgan": "^1.9.1"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon src/index.js"
   },
   "author": "Angelo Caruso",
   "license": "ISC"
