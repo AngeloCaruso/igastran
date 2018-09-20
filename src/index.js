@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const morgan = require('morgan');
 //Settings
-server.set('port', process.env.PORT || 3000);
+server.set('port', process.env.PORT);
 const port = server.get('port');
 
 server.use(express.json());
