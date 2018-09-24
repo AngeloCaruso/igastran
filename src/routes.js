@@ -28,7 +28,7 @@ router.post('/registro', (req, res) => {
     let consulta = 'insert into usuarios(nombre, apellidos, usarname, password, correo) values (?, ?, ?, ?, ?)';
     mysql.query(consulta, [nombre, apellidos, usuario, correo, password], (err) => {
         if(!err){
-
+            
         }else{
             console.log(err);
         }
