@@ -1,16 +1,51 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('../models/dbconnection');
+const mysql = require('./models/dbconnection');
 
 router.get('/login', (req, res) => {
     res.end('Login de usuarios');
 });
 
-//Manejo de imagenes
-router.get('/upload', (req, res) => {
-    res.sendFile('D:/user-/Escritorio/Angelo/Cosas/Documentos/Proyectos programación/Nodegastran/views/upload.html');
-});
 //uploadcare - blueimp
+//inicio (root)
+router.get('/', (req, res) => {
+    res.render('index');
+});
+
+//login - registro
+router.get('/ingresar', (req, res) => {
+    res.render('ingresar');
+});
+
+//Autenticacion
+router.post('/login', (req, res) => {
+    let { usuario_correo, password } = req.body;
+    res.end();
+    //res.redirect('/perfil');
+});
+router.post('/registro', (req, res) => {
+    let { nombre, apellidos, usuario, correo, password } = req.body;
+    let consulta = 'insert into usuarios(nombre, apellidos, usarname, password, correo) values (?, ?, ?, ?, ?)';
+    mysql.query(consulta, [nombre, apellidos, usuario, correo, password], (err) => {
+        if(!err){
+
+        }else{
+            console.log(err);
+        }
+    });
+    res.redirect('/perfil');
+});
+
+//logout
+router.get('/logout', (req, res) => {
+    res.render('index');
+});
+
+//Perfil
+router.get('/perfil', (req, res) => {
+    res.render('perfil');
+});
+
 //Manejo de usuarios
 router.route('/usuarios')
     .get((req, res) => {
@@ -24,8 +59,9 @@ router.route('/usuarios')
         });
     })
     .post((req, res) => {
-        let {nombre, usuario, pass} = req.body;
-        mysql.query('insert into usuarios(nombre, usuario, pass) values (?, ?, ?)', [nombre, usuario, pass], (err) => {
+        let {nombre, apellidos, username, password, correo} = req.body;
+        let consulta = 'insert into usuarios(nombre, apellidos, username, password, correo) values (?, ?, ?)';
+        mysql.query(consulta, [nombre, apellidos, username, password, correo], (err) => {
             if (!err) {
                 res.end('Usuario agregado');
             }else{
@@ -34,8 +70,9 @@ router.route('/usuarios')
         });
     })
     .put((req, res) => {
-        let {id, nombre, usuario, pass} = req.body;
-        mysql.query('update usuarios set nombre = ?, usuario = ?, pass = ? where id = ?', [nombre, usuario, pass, id], (err) => {
+        let {id, nombre, apellidos, username, password, correo} = req.body;
+        let consulta = 'update usuarios set nombre = ?, apellidos = ?, username = ?, correo = ? where id = ?';
+        mysql.query(consulta , [nombre, apellidos, username, password, correo, id], (err) => {
             if (!err) {
                 res.end('Usuario actualizado');
             }else{
