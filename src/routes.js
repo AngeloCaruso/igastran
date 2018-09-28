@@ -12,6 +12,16 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
+router.get('/usuario/:id_usuario', (req, res) => {
+    mysql.query('select * from usuarios where estado = 1 and id = ?',[req.params.id_usuario] , (err, rows, fields) =>{
+        res.render('perfil', [
+            usuario = rows[0].username, 
+            nombre = rows[0].nombre,
+            apellido = rows[0].apellidos
+        ]);
+    });
+});
+
 //login - registro
 router.get('/ingresar', (req, res) => {
     res.render('ingresar');
@@ -25,15 +35,15 @@ router.post('/login', (req, res) => {
 });
 router.post('/registro', (req, res) => {
     let { nombre, apellidos, usuario, correo, password } = req.body;
-    let consulta = 'insert into usuarios(nombre, apellidos, usarname, password, correo) values (?, ?, ?, ?, ?)';
+    let consulta = 'insert into usuarios(nombre, apellidos, username, password, correo) values (?, ?, ?, ?, ?)';
     mysql.query(consulta, [nombre, apellidos, usuario, correo, password], (err) => {
         if(!err){
-            
+            res.end('registrado');
         }else{
             console.log(err);
         }
     });
-    res.redirect('/perfil');
+    //res.redirect('/perfil');
 });
 
 //logout
@@ -50,7 +60,7 @@ router.get('/perfil', (req, res) => {
 router.route('/usuarios')
     .get((req, res) => {
         //res.end('Usuario buscado: '+ req.params.id);
-        mysql.query('select * from usuarios', (err, rows) => {
+        mysql.query('select * from usuarios where estado = 1', (err, rows) => {
             if (!err) {
                res.json(rows);
             }else{
