@@ -1,0 +1,11 @@
+.parallax {
+    background-image: url('/bg.jpeg');
+    background-attachment: inherit;
+    background-repeat: round;
+}
+.profimg {
+    height: 160px;
+}
+.nav1, .nav2 {
+    cursor: pointer;
+}

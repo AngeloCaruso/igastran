@@ -1,5 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const multer = require('multer');
+const upload = multer({
+    dest: 'src/images/uploaded_images/',
+    preservePath: true
+});
 const mysql = require('./models/dbconnection');
 
 router.get('/login', (req, res) => {
@@ -12,12 +18,20 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
-router.get('/usuario/:id_usuario', (req, res) => {
-    mysql.query('select * from usuarios where estado = 1 and id = ?',[req.params.id_usuario] , (err, rows, fields) =>{
+router.get('/perfil', (req, res) => {
+    res.render('ingresar');
+});
+
+router.post('/upload',upload.single('archivo'), (req, res) =>{
+    let { mimetype, filename} = req.file;
+    res.end(filename + '.' + path.basename(mimetype));
+});
+
+router.get('/user/:id_usuario', (req, res) => {
+    mysql.query('select * from usuarios where estado = 1 and id = ?',[req.params.id_usuario] , (err, rows) =>{
         res.render('perfil', [
-            usuario = rows[0].username, 
-            nombre = rows[0].nombre,
-            apellido = rows[0].apellidos
+            nombre = rows[0].nombre + ' ' + rows[0].apellidos,
+            usuario = rows[0].username
         ]);
     });
 });

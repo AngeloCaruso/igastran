@@ -7,6 +7,8 @@ const server = express();
 server.set('port', process.env.PORT || 3000);
 const port = server.get('port');
 
+server.use(express.static(path.join(__dirname, '/assets')));
+
 server.set('views', path.join(__dirname, 'views'));
 server.engine('ejs', engine);
 server.set('view engine', 'ejs');
