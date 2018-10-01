@@ -1,5 +1,5 @@
 const morgan = require('morgan');
-const engine = require('ejs-mate');
+const engine = require('express-ejs-layouts');
 const path = require('path');
 const express = require('express');
 const server = express();
@@ -10,8 +10,8 @@ const port = server.get('port');
 server.use(express.static(path.join(__dirname, '/assets')));
 
 server.set('views', path.join(__dirname, 'views'));
-server.engine('ejs', engine);
 server.set('view engine', 'ejs');
+server.use(engine);
 
 server.use(express.json());
 server.use(morgan('dev'));

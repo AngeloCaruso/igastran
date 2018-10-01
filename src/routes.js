@@ -29,10 +29,11 @@ router.post('/upload',upload.single('archivo'), (req, res) =>{
 
 router.get('/user/:id_usuario', (req, res) => {
     mysql.query('select * from usuarios where estado = 1 and id = ?',[req.params.id_usuario] , (err, rows) =>{
-        res.render('perfil', [
-            nombre = rows[0].nombre + ' ' + rows[0].apellidos,
-            usuario = rows[0].username
-        ]);
+        res.locals = {
+            nombre: rows[0].nombre + ' ' + rows[0].apellidos,
+            usuario: rows[0].username
+        };
+        res.render('perfil', {layout: 'index'});
     });
 });
 
