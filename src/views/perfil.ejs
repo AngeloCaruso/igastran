@@ -2,10 +2,12 @@
 <div class="page-header header-filter clear-filter parallax" data-parallax="true"></div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="profile">
-                <img src="/dog.jpg" alt="not-found" class="img-raised rounded-circle img-fluid profimg">
-                <div class="datosPerfil">
+        <div class="col-lg-4">
+            <div class="profile main main-raised">
+                <div class="avatar">
+                    <img src="/dog.jpg" alt="not-found" class="img-raised rounded-circle img-fluid profimg">
+                </div>
+                <div class="name">
                     <h3>
                         <%= nombre %>
                     </h3>
@@ -13,73 +15,88 @@
                         <%= usuario %>
                     </h5>
                 </div>
-                <div class="btn-group-vertical">
-                    <button class="btn btn-primary">
-                        <i class="material-icons">collections</i>
-                        Imagenes
-                    </button>
-                    <button class="btn btn-primary">
-                        <i class="material-icons">edit</i>
-                        Editar perfil
-                    </button>
-                    <button class="btn btn-primary">
-                        <i class="material-icons"></i>
-                    </button>
+                <div class="row">
+                    <div class="col">
+                        <ul class="nav nav-pills nav-pills-rose flex-column mb-3">
+                            <li class="nav-item">
+                                <!--<i class="material-icons">collections</i>-->
+                                <a class="nav-link active" href="#imagenes" data-toggle="tab">Imagenes</a>
+                            </li>
+                            <li class="nav-item">
+                                <!--<i class="material-icons">edit</i>-->
+                                <a class="nav-link" href="#datos" data-toggle="tab">Editar perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" class="nav-link" data-toggle="tab">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <div class="main main-raised">
                 <div class="container">
                     <!-- Imagenes del usuario -->
-                    <div class="imagenesUsuario section">
-                        <ul class="nav nav-pills nav-pills-primary">
-                            <li class="nav-item"><a class="nav1 nav-link active" data-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav2 nav-link" data-toggle="tab">Settings</a></li>
-                        </ul>
-                        <div class="carousel slide">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <h1>test1</h1>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="imagenes">
+                            <div class="card card-nav-tabs card-plain">
+                                <div class="card-header card-header-rose">
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wraper">
+                                            <ul class="nav nav-tabs justify-content-center" data-tabs="tabs">
+                                                <li class="nav-item"><a class="nav1 nav-link active" href="#subidas"
+                                                        data-toggle="tab">Profile</a></li>
+                                                <li class="nav-item"><a class="nav2 nav-link" href="#mg" data-toggle="tab">Settings</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="carousel-item">
-                                    <h1>test2</h1>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="subidas">
+                                            test1
+                                        </div>
+                                        <div class="tab-pane" id="mg">
+                                            test2
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Editar datos del usuario -->
-                    <div class="editarPerfil section" hidden>
-                        <h3>Cambiar foto de perfil</h3>
-                        <h3>Cambiar foto de fondo</h3>
-                        <form action="">
-                            <div class="form-row">
-                                <div class="form-group bmd-form-group col-md-6">
-                                    <label for="inputName" class="bmd-label-floating">Nombre</label>
-                                    <input type="text" name="nombre" id="inputName" class="form-control">
+                        <div class="tab-pane" id="datos">
+                            <!-- Editar datos del usuario -->
+                            <div class="editarPerfil">
+                                <h3>Cambiar foto de perfil</h3>
+                                <h3>Cambiar foto de fondo</h3>
+                                <div class="form-row">
+                                    <div class="form-group bmd-form-group col-md-6">
+                                        <label for="inputName" class="bmd-label-floating">Nombre</label>
+                                        <input type="text" name="nombre" id="inputName" class="form-control">
+                                    </div>
+                                    <div class="form-group bmd-form-group col-md-6">
+                                        <label for="inputApellidos" class="bmd-label-floating">Apellidos</label>
+                                        <input type="text" name="apellidos" id="inputApellidos" class="form-control">
+                                    </div>
                                 </div>
-                                <div class="form-group bmd-form-group col-md-6">
-                                    <label for="inputApellidos" class="bmd-label-floating">Apellidos</label>
-                                    <input type="text" name="apellidos" id="inputApellidos" class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group bmd-form-group col">
+                                        <label for="inputUsuario" class="bmd-label-floating">Usuario</label>
+                                        <input type="text" name="usuario" id="inputUsuario" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group bmd-form-group col-md-6">
+                                        <label for="inputPass" class="bmd-label-floating">Contraseña</label>
+                                        <input type="text" name="password" id="inputPass" class="form-control">
+                                    </div>
+                                    <div class="form-group bmd-form-group col-md-6">
+                                        <label for="inputPassConf" class="bmd-label-floating">Confirmar contraseña</label>
+                                        <input type="text" name="" id="inputPassConf" class="form-control">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group bmd-form-group col">
-                                    <label for="inputUsuario" class="bmd-label-floating">Usuario</label>
-                                    <input type="text" name="usuario" id="inputUsuario" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group bmd-form-group col-md-6">
-                                    <label for="inputPass" class="bmd-label-floating">Contraseña</label>
-                                    <input type="text" name="password" id="inputPass" class="form-control">
-                                </div>
-                                <div class="form-group bmd-form-group col-md-6">
-                                    <label for="inputPassConf" class="bmd-label-floating">Confirmar contraseña</label>
-                                    <input type="text" name="" id="inputPassConf" class="form-control">
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
