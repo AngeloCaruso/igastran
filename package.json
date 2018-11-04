@@ -6,7 +6,8 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "express-ejs-layouts": "^2.5.0"
+    "express-ejs-layouts": "^2.5.0",
+    "firebase-admin": "^6.1.0"
   },
   "devDependencies": {
     "morgan": "^1.9.1",
