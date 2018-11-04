@@ -1,13 +1,15 @@
+<%- contentFor('pageType') %>
+<body class="login-page">
 <%- contentFor('body') %>
 <div>
-	<form action="/ingresar" method="POST" enctype='application/json'>
+	<form action="/login" method="POST" enctype='application/json'>
 		<input type="text" name="usuario_correo" placeholder="usuario o correo electrónico">
 		<input type="text" name="password" placeholder="contraseña">
 		<button type="submit">login</button>
 	</form>
 </div><br>
 <div>
-	<form action="/ingresar" method="POST" enctype="application/json">
+	<form action="/registrar" method="POST" enctype="application/json">
 		<input type="text" name="nombre" placeholder="Nombre">
 		<input type="text" name="apellidos" placeholder="Apellidos">
 		<input type="text" name="usuario" placeholder="Usuario">
@@ -49,3 +51,4 @@
 		</div>
 	</div>
 </div>
+<button id="btnTest">Test</button>
