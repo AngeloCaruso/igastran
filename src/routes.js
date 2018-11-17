@@ -12,18 +12,30 @@ db.settings(settings);
 
 //inicio (root)
 router.get('/', (req, res) => {
-    res.end('Bienvenido', {
-        layout: 'index'
-    });
+    res.render('mainPage', {
+        layout: 'index',
+        user: 'Ingresa'
+    })
+})
+router.get('/main/:uid', (req, res) => {
+    let user = req.params.uid
+    firebase.auth().getUser(user)
+        .then(user => {
+            console.log(user)
+            res.render('mainPage', {
+                layout: 'index',
+                user: user
+            });
+        })
+        .catch(err => {
+            console.log(err)
+        })
 });
 
 router.get('/ingresar', (req, res) => {
     res.render('ingresar', {
         layout: 'index'
     })
-})
-
-router.post('/login', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
@@ -48,6 +60,12 @@ router.post('/register', (req, res) => {
             console.log('Error al crear usuario', err)
             res.end('Error al crear usuario', err)
         })
+})
+
+router.get('/profile', (req, res) => {
+    res.render('perfil', {
+        layout: 'index'
+    })
 })
 
 module.exports = router;

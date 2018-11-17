@@ -1,0 +1,33 @@
+<%- contentFor('pageType') %>
+
+<body class="profile-page" id="main">
+    <%- contentFor('body') %>
+    <div class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg ">
+        <div class="container">
+            <a class="navbar-brand" href="">Igastran</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/ingresar">Ingresa</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <p><%- user.displayName %></p>
+                    </div>
+                    <button class="upload btn btn-lg">Subir imagen</button>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        imagenes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
