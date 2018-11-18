@@ -16,19 +16,9 @@ router.get('/login', (req, res) => {
 //uploadcare - blueimp
 //inicio (root)
 router.get('/', (req, res) => {
-    res.end('Bienvenido', {layout: 'index'});
-});
-
-router.get('/perfil', (req, res) => {
-    res.render('ingresar');
-});
-
-router.post('/upload', upload.single('archivo'), (req, res) => {
-    let {
-        mimetype,
-        filename
-    } = req.file;
-    res.end(filename + '.' + path.basename(mimetype));
+    res.end('Bienvenido', {
+        layout: 'index'
+    });
 });
 
 router.get('/user/:id_usuario', (req, res) => {
@@ -49,35 +39,23 @@ router.get('/ingresar', (req, res) => {
         layout: 'index'
     });
 });
-router.post('/ingresar', passport.authenticate('local-register', { failureRedirect: '/'}), (req, res) => {
-    let sessionId = req.session.passport.user;
-    res.redirect('/user/' + sessionId);
-});
 
-router.post('/checkCredentials', (req, res) => {
-    
-})
-//Autenticacion
+router.post('/ingresar', passport.authenticate('local-register', {
+    successRedirect: '/',
+    failureRedirect: '/ingresar',
+    passReqToCallback: true
+}))
+
 router.post('/login', (req, res) => {
 
 });
-router.post('/registrao', (req, res) => {
+
+router.post('/upload', upload.single('archivo'), (req, res) => {
     let {
-        nombre,
-        apellidos,
-        usuario,
-        correo,
-        password
-    } = req.body;
-    let consulta = 'insert into usuarios(nombre, apellidos, username, password, correo) values (?, ?, ?, ?, ?)';
-    mysql.query(consulta, [nombre, apellidos, usuario, correo, password], (err) => {
-        if (!err) {
-            console.log('registrado');
-        } else {
-            console.log(err);
-        }
-    });
-    res.redirect('/ingresar');
+        mimetype,
+        filename
+    } = req.file;
+    res.end(filename + '.' + path.basename(mimetype));
 });
 
 //logout

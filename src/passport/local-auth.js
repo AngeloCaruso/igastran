@@ -23,11 +23,11 @@ passport.use('local-login', new localStrategy({
             return done(err);
         }
         if (!rows.length) {
-            console.log('no');
+            console.log('no existe');
             return done(null, false, 'Error')
         }
         if (rows[0].password != password) {
-            console.log('nel');
+            console.log('contraseña incorrecta');
             return done(null, false, 'Error');
         }
         if (!err) {
@@ -64,6 +64,7 @@ passport.use('local-register', new localStrategy({
                             console.log(err);
                             return done(err);
                         } else {
+                            console.log(rows2[0])
                             done(null, rows2[0]);
                         }
                     })
