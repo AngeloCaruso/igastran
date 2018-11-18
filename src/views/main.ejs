@@ -1,1 +1,19 @@
 <h1>Welcome</h1>
+<% if(user) {%>
+<%= user.nombre %>
+<%}else{%>
+<%- '<a href="/ingresar">ingresar</a>' %>
+<%} %>
+<div class="container">
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="img">
+        <button>send</button>
+    </form>
+    <div class="row">
+        <div class="col">
+            <% imgList.map(img => {%>
+            <%- '<'+'img src="src/images/uploaded_images/'+img+'">'%>
+            <% }) %>
+        </div>
+    </div>
+</div>

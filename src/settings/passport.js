@@ -80,6 +80,4 @@ module.exports = function (passport) {
             }
         )
     )
-
-
 }
