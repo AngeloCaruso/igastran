@@ -2,24 +2,38 @@ const db = require('./settings/database');
 module.exports = function (server, passport, path, multer) {
 
     //Multer init ==========================================
+    var storage = multer.diskStorage({
+        destination: path.join(__dirname, 'public/images/uploaded_images/'),
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    })
     const upload = multer({
-        dest: 'src/images/uploaded_images/',
-        preservePath: true
-    });
+        storage: storage,
+        limits: {
+            fileSize:524288000
+        },
+        fileFilter: function (req, file, cb){
+            validateFileType(file, cb);
+        }
+    }).single('img');
+
+    function validateFileType(file, cb){
+        
+    }
 
     //Routes ===============================================
 
     server.get('/', (req, res) => {
-        let user = req.user;
-        var imgList = db.query('select * from imagenes_subidas where estado = 1', (err, rows) => {
-            console.log(rows)
+        db.query('select * from imagenes_subidas where estado = 1', (err, rows) => {
+            res.locals = {
+                user: req.user,
+                imgList: rows
+            }
+            res.render('main', {
+                layout: 'index'
+            })
         });
-        //console.log(imgList)
-        res.render('main', {
-            layout: 'index',
-            user: user,
-            imgList: imgList
-        })
     });
 
     server.get('/ingresar', (req, res) => {
@@ -47,17 +61,35 @@ module.exports = function (server, passport, path, multer) {
     });
 
     server.get('/profile', isLogged, (req, res) => {
-        user = req.user;
+        let user = req.user;
         //console.log(user);
-        res.render('profile', {
-            layout: 'index',
+        res.locals = {
             user: user.nombre + ' ' + user.apellido
+        }
+        res.render('profile', {
+            layout: 'index'
         });
     });
 
-    server.post('/upload', upload.single('img'), (req, res) => {
-        let {mimetype, filename} = req.file;
-        res.end(filename + '.' + path.basename(mimetype));
+    server.post('/upload',isLogged, (req, res) => {
+        let desc = req.body.desc;
+        let user = req.user;
+        upload(req, res, (err) => {
+            if (err) {
+                res.end('Error')
+            } else {
+                let foto = req.file.filename;
+                db.query('insert into imagenes_subidas (usuarios_id, descripcion, foto) values (?, ?, ?)', [user.id, desc, foto], (err, rows) => {
+                    if (err) {
+                        console.log(err);
+                        res.end(err);
+                    } else {
+                        res.end('Ok');
+                    }
+                });
+            }
+        })
+
     })
 
     server.get('/logout', (req, res) => {

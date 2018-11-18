@@ -21,7 +21,7 @@ server.use(morgan('dev'));
 server.use(cookieParser());
 server.use(express.json());
 server.use(express.urlencoded({extended:false}));
-server.use(express.static(path.join(__dirname, './public')));
+server.use(express.static(path.join(__dirname, '/public')));
 server.use(flash());
 server.use(session({
     secret: 'IsraelNoEsUnEstadoLegitimo',

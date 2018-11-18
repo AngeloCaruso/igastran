@@ -1,3 +1,25 @@
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-content">
+                    <div class="profile">
+                        <div class="avatar">
+
+                        </div>
+                        <div class="name">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <h1>Welcome</h1>
 <% if(user) {%>
 <%= user.nombre %>
@@ -12,7 +34,7 @@
     <div class="row">
         <div class="col">
             <% imgList.map(img => {%>
-            <%- '<'+'img src="src/images/uploaded_images/'+img+'">'%>
+            <%- '<'+'img src="/images/uploaded_images/'+img.foto+'">'%>
             <% }) %>
         </div>
     </div>
