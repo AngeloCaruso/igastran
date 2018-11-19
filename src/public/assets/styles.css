@@ -1,0 +1,12 @@
+.profimg{
+    height: 160px;
+}
+.f_img{
+    max-width: 120px;
+    width: 100%;
+    height: 120px;
+}
+.inputUpdate input[type=file]{
+    opacity: 0;
+    border-bottom: 1px solid blue;
+}

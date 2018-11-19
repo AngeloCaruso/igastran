@@ -1,41 +1,42 @@
-<div class="container">
-    <div class="section">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-content">
-                    <div class="profile">
-                        <div class="avatar">
+<%- contentFor('bodyType') %>
 
-                        </div>
-                        <div class="name">
-                            
+<body class="">
+    <%-contentFor('navOptions') %>
+    <%-'<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>'%>
+    <% if(user){ %>
+    <%- '<li class="nav-item"><a class="nav-link" href="/profile">Perfil</a></li>' %>
+    <% } else { %>
+    <%- '<li class="nav-item"><a class="nav-link" href="/ingresar">Ingresa</a></li>' %>
+    <% } %>
+    <%- contentFor('body') %>
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <% if(user){ %>
+                        <%- '<h3>'+user.nombre+'</h3>' %>
+                        <% }else{ %>
+                        <%- 'Ingresa ahora' %>
+                        <% } %>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <% if(user){ %>
+                            <%- '<button class="btn btn-primary btnUpload">Subir imagen</button>' %>
+                            <% } %>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-
+                <div class="col-md-8">
+                    <div class="card">
+                        <ul id="imgContainer">
+                            <% imgList.map(img => {%>
+                            <%- `<li><img src="/images/uploaded_images/${img.foto}"></li>`%>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<h1>Welcome</h1>
-<% if(user) {%>
-<%= user.nombre %>
-<%}else{%>
-<%- '<a href="/ingresar">ingresar</a>' %>
-<%} %>
-<div class="container">
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="img">
-        <button>send</button>
-    </form>
-    <div class="row">
-        <div class="col">
-            <% imgList.map(img => {%>
-            <%- '<'+'img src="/images/uploaded_images/'+img.foto+'">'%>
-            <% }) %>
-        </div>
-    </div>
-</div>

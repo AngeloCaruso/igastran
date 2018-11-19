@@ -37,7 +37,7 @@ module.exports = function (passport) {
                                     apellidos: extraData.apellidos,
                                     correo: extraData.correo
                                 }
-                                let insertQ = 'insert into usuarios (nombre, apellidos, username, password, correo) values(?, ?, ?, ?, ?)';
+                                let insertQ = 'insert into usuarios (nombre, apellidos, username, password, correo) values (?, ?, ?, ?, ?)';
                                 db.query(insertQ, [newUser.nombre, newUser.apellidos, newUser.userName, newUser.password, newUser.correo], (err, irows) => {
                                     newUser.id = irows.insertId;
                                     return done(null, newUser);
@@ -66,7 +66,7 @@ module.exports = function (passport) {
                             return done(err);
                         }
                         if (!rows.length) {
-                            return done(null, false, req.flash('loginMessage', 'Usuario no encontrado'));
+                            return done(null, false, 'Error');
                         }
                         bcrypt.compare(password, rows[0].password).then((res) => {
                             if (res) {

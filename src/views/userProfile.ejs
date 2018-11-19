@@ -22,23 +22,16 @@
                         </h5>
                     </div>
                     <div class="follow">
-                        <!--<button class="btn btn-fab btn-rose btn-round btn_follow">
+                        <%- `<button id=${user.id} class="btn btn-fab btn-rose btn-round btn_follow">` %>
                             <i class="material-icons">add</i>
                             <div class="ripple-container"></div>
-                        </button> -->
+                        </button>
                     </div>
                     <div class="row">
                         <div class="col">
                             <ul class="nav nav-pills nav-pills-rose flex-column mb-3">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#imagenes" data-toggle="tab">Imagenes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#datos" data-toggle="tab">Editar perfil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" class="nav-link btnLogout" data-toggle="tab">Cerrar
-                                        sesión</a>
                                 </li>
                             </ul>
                         </div>
@@ -57,7 +50,7 @@
                                             <div class="nav-tabs-wraper">
                                                 <ul class="nav nav-tabs justify-content-center" data-tabs="tabs">
                                                     <li class="nav-item"><a class="nav-link active" href="#subidas"
-                                                            data-toggle="tab">Mis imagenes</a></li>
+                                                            data-toggle="tab">Imagenes subidas</a></li>
                                                     <li class="nav-item"><a class="nav-link" href="#mg" data-toggle="tab">Seguidores</a></li>
                                                 </ul>
                                             </div>
@@ -72,7 +65,7 @@
                                                 <div class="section">
                                                     <div class="row">
                                                         <div class="col">
-                                                            Personas que te siguen
+                                                            Personas que siguen a este usuario
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -82,7 +75,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            Personas a las que sigues
+                                                            Personas que este usuario sigue
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -91,66 +84,6 @@
                                                         <% }) %>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="datos">
-                                <!-- Editar datos del usuario -->
-                                <div class="section">
-                                    <div class="editarPerfil">
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="/updateProfile" method="POST" enctype="multipart/form-data">
-                                                    <label for="inputP">Haz click aquí para cargar una foto de perfil</label>
-                                                    <div class="inputUpdate">
-                                                        <input id="inputUpdate" type="file" name="updateProf" required>
-                                                    </div>
-                                                    <button class="btn btn-rose">Guardar</button>
-                                                </form>
-                                            </div>
-                                            <div class="col">
-                                                <form action="/updateBg" method="POST" enctype="multipart/form-data">
-                                                    <label for="inputBg">Haz click aquí para cargar un fondo para tu
-                                                        perfil</label>
-                                                    <div class="inputUpdate">
-                                                        <input id="inputBg" type="file" name="updateBg" required>
-                                                    </div>
-                                                    <button class="btn btn-rose">Guardar</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputName" class="bmd-label-floating">Nombre</label>
-                                                <input type="text" name="nombre" id="inputName" class="form-control">
-                                            </div>
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputApellidos" class="bmd-label-floating">Apellidos</label>
-                                                <input type="text" name="apellidos" id="inputApellidos" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group bmd-form-group col">
-                                                <label for="inputUsuario" class="bmd-label-floating">Usuario</label>
-                                                <input type="text" name="usuario" id="inputUsuario" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputPass" class="bmd-label-floating">Contraseña</label>
-                                                <input type="text" name="password" id="inputPass" class="form-control">
-                                            </div>
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputPassConf" class="bmd-label-floating">Confirmar
-                                                    contraseña</label>
-                                                <input type="text" name="" id="inputPassConf" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col text-center">
-                                                <button class="btn btn-rose">Guardar cambios</button>
                                             </div>
                                         </div>
                                     </div>
