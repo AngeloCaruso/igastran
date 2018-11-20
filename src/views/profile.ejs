@@ -66,7 +66,11 @@
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="subidas">
-                                                test1
+                                                <div class="imgContainer mt-1 mb-1 mr-1 ml-1">
+                                                    <% imgList.map(img => {%>
+                                                    <%- `<div class="imgWr cardImg mt-0 mb-0" href="/images/uploaded_images/${img.foto}"><img class="imgC" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
+                                                    <% }) %>
+                                                </div>
                                             </div>
                                             <div class="tab-pane" id="mg">
                                                 <div class="section">

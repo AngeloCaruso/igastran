@@ -55,9 +55,19 @@ module.exports = function (server, passport, path, multer) {
         db.query(`select concat(u1.nombre, ' ', u1.apellidos) as nombre, u1.username as follower, u1.foto_perfil as fp_follower from follows f 
                     inner join usuarios u1 on f.usuario_id = u1.id
                     inner join usuarios u2 on f.follower_id = u2.id
-                    where f.follower_id = ?`, [id], (err, rows) => {
-            cb(rows)
-        });
+                    where f.follower_id = ?`, [id],
+            (err, rows) => {
+                cb(rows)
+            });
+    }
+
+    function getImages(id, cb) {
+        db.query(`select * from usuarios u 
+                    inner join imagenes_subidas i on u.id = i.usuarios_id 
+                    where u.id = ?`, [id],
+            (err, rows) => {
+                cb(rows)
+            })
     }
 
     //Routes ===============================================
@@ -103,18 +113,21 @@ module.exports = function (server, passport, path, multer) {
         let user = req.user;
         getFollowers(user.id, (followers) => {
             getFollowing(user.id, (following) => {
-                db.query('select * from usuarios where id= ? and estado = 1', [user.id], (err, rows) => {
-                    console.log(followers)
-                    res.locals = {
-                        user: user,
-                        imgP: rows[0].foto_perfil,
-                        bg: rows[0].foto_fondo,
-                        followers: followers,
-                        following: following
-                    }
-                    res.render('profile', {
-                        layout: 'index'
-                    });
+                getImages(user.id, (imgList) => {
+                    db.query('select * from usuarios where id= ? and estado = 1', [user.id], (err, rows) => {
+                        console.log(followers)
+                        res.locals = {
+                            user: user,
+                            imgP: rows[0].foto_perfil,
+                            bg: rows[0].foto_fondo,
+                            followers: followers,
+                            following: following,
+                            imgList: imgList
+                        }
+                        res.render('profile', {
+                            layout: 'index'
+                        });
+                    })
                 })
             });
         });

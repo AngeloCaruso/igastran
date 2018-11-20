@@ -1,4 +1,6 @@
 $(function () {
+
+    
     $('.btnLogout').on('click', function(){
         $.ajax({
             type: "post",
@@ -105,4 +107,5 @@ $(function () {
             }
         });
     })
+    lc_lightbox('.imgContainer div.cardImg');
 })

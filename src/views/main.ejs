@@ -23,18 +23,18 @@
                     <div class="row">
                         <div class="col">
                             <% if(user){ %>
-                            <%- '<button class="btn btn-primary btnUpload">Subir imagen</button>' %>
+                            <%- '<button class="btn btn-rose btn-lg btnUpload">Subir imagen</button>' %>
                             <% } %>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="card">
-                        <ul id="imgContainer">
+                        <div class="imgContainer mt-1 mb-1 mr-1 ml-1">
                             <% imgList.map(img => {%>
-                            <%- `<li><img src="/images/uploaded_images/${img.foto}"></li>`%>
+                            <%- `<div class="imgWr cardImg mt-0 mb-0" href="/images/uploaded_images/${img.foto}"><img class="imgC" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
                             <% }) %>
-                        </ul>
+                            </div>
                     </div>
                 </div>
             </div>
