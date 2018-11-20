@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Igastran</title>
     <link rel="stylesheet" type="text/css" href="/material-kit/assets/css/material-kit.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
     <link rel="stylesheet" href="/Lightbox/css/lc_lightbox.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,15 +19,16 @@
         <a class="navbar-brand" href="/">Igastran</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <form class="form-inline ml-auto">
-                    <div class="form-group no-border">
+
+                <%- navOptions %>
+                <form class="form-inline ml-auto formSearch">
+                    <div class="form-group no-border searchInputS mr-2">
                         <input type="text" class="form-control inputBuscar" placeholder="Buscar usuario">
                     </div>
                     <button type="submit" class="btn btn-white btn-just-icon btn-round">
                         <i class="material-icons">search</i>
                     </button>
                 </form>
-                <%- navOptions %>
             </ul>
         </div>
     </div>
@@ -44,6 +46,7 @@
 <script src="/material-kit/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
 <script src="/material-kit/assets/js/plugins/moment.min.js"></script>
 <script src="/material-kit/assets/js/material-kit.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
 <script src="/Lightbox/js/lc_lightbox.lite.min.js"></script>
 <script src="/assets/scripts.js" type="text/javascript"></script>
 </body>

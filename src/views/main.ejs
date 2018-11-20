@@ -12,29 +12,52 @@
     <div class="container">
         <div class="section">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
                         <% if(user){ %>
-                        <%- '<h3>'+user.nombre+'</h3>' %>
+                        <%- `<img class="card-img-top cardBg" src="/images/uploaded_images/${uData.foto_fondo}">
+                                <div class="card-body main-raised ml-0 mr-0 mainCard">
+                                    <div class="avatar align-items-end text-center">
+                                        <img src="/images/uploaded_images/${uData.foto_perfil}" class="img-raised rounded-circle img-fluid mainImg" alt="">
+                                        <h3 class="card-title">${user.username}</h3>
+                                        <h4 class="card-subtitle text-muted">${user.nombre+' '+user.apellidos}</h4>
+                                    </div>
+                                </div>` %>
                         <% }else{ %>
-                        <%- 'Ingresa ahora' %>
+                        <%- '<div class="card-body text-center"><h3>Registrate o ingresa con tu cuenta para empezar a subir imagenes</h3></div>' %>
                         <% } %>
                     </div>
                     <div class="row">
                         <div class="col">
                             <% if(user){ %>
-                            <%- '<button class="btn btn-rose btn-lg btnUpload">Subir imagen</button>' %>
+                            <%- '<button class="btn btn-rose btn-lg btnUpload" data-toggle="modal" data-target="#uploadImg">Subir imagen</button>' %>
                             <% } %>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="card">
                         <div class="imgContainer mt-1 mb-1 mr-1 ml-1">
                             <% imgList.map(img => {%>
-                            <%- `<div class="imgWr cardImg mt-0 mb-0" href="/images/uploaded_images/${img.foto}"><img class="imgC" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
+                            <%- `<div class="imgWr cardImg rounded mt-0 mb-0" href="/images/uploaded_images/${img.foto}"><img class="imgC rounded" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
                             <% }) %>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="uploadImg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Sube una imagen</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form class="formUpload" enctype="multipart/form-data">
+                            <input type="file" name="img" required>
+                            <button class="btn btn-rose btn-lg btnUpload mt-5">Subir</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 <body class="profile-page">
     <%- contentFor('navOptions') %>
     <%- '<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>' %>
+    <%- '<li class="nav-item"><a class="nav-link" href="/profile">Perfil</a></li>' %>
     <%- contentFor('body') %>
     <%- '<'+'div class="page-header header-filter clear-filter parallax" style="background-image: url('+ "/images/uploaded_images/"+ bg +');background-attachment: inherit;background-repeat: round;" data-parallax="true">'%>
     </div>
@@ -23,8 +24,8 @@
                     </div>
                     <div class="follow">
                         <%- `<button id=${user.id} class="btn btn-fab btn-rose btn-round btn_follow">` %>
-                            <i class="material-icons">add</i>
-                            <div class="ripple-container"></div>
+                        <i class="material-icons">add</i>
+                        <div class="ripple-container"></div>
                         </button>
                     </div>
                     <div class="row">
@@ -59,28 +60,32 @@
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="subidas">
-                                                test1
+                                                <div class="imgContainer mt-1 mb-1 mr-1 ml-1">
+                                                    <% imgList.map(img => {%>
+                                                    <%- `<div class="imgWr rounded cardImg mt-0 mb-0" href="/images/uploaded_images/${img.foto}"><img class="imgC rounded" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
+                                                    <% }) %>
+                                                </div>
                                             </div>
                                             <div class="tab-pane" id="mg">
-                                                <div class="section">
+                                                <div class="section pt-1 pb-1">
                                                     <div class="row">
                                                         <div class="col">
-                                                            Personas que siguen a este usuario
+                                                            <h3 class="fLabel">Personas que siguen a este usuario</h3>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <% followers.map(user =>{ %>
-                                                        <%- '<div class="col-md-6"><div class="card"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
+                                                        <%- '<div class="col-md-6"><div class="card pt-1"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
                                                         <% }) %>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            Personas que este usuario sigue
+                                                            <h3 class="fLabel">Personas que este usuario sigue</h3>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <% following.map(user =>{ %>
-                                                        <%- '<div class="col-md-6"><div class="card"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
+                                                        <%- '<div class="col-md-6"><div class="card pt-1"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
                                                         <% }) %>
                                                     </div>
                                                 </div>

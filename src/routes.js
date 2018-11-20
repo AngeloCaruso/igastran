@@ -55,7 +55,8 @@ module.exports = function (server, passport, path, multer) {
         db.query(`select concat(u1.nombre, ' ', u1.apellidos) as nombre, u1.username as follower, u1.foto_perfil as fp_follower from follows f 
                     inner join usuarios u1 on f.usuario_id = u1.id
                     inner join usuarios u2 on f.follower_id = u2.id
-                    where f.follower_id = ?`, [id],
+                    where f.follower_id = ?
+                    and f.estado = 1`, [id],
             (err, rows) => {
                 cb(rows)
             });
@@ -73,14 +74,30 @@ module.exports = function (server, passport, path, multer) {
     //Routes ===============================================
 
     server.get('/', (req, res) => {
+        let user = req.user;
         db.query('select * from imagenes_subidas where estado = 1', (err, rows) => {
-            res.locals = {
-                user: req.user,
-                imgList: rows
+            let list = rows
+            if (user) {
+                db.query('select * from usuarios where id = ?', [user.id], (err, rows) => {
+                    console.log(rows[0])
+                    res.locals = {
+                        user: user,
+                        uData: rows[0],
+                        imgList: list
+                    }
+                    res.render('main', {
+                        layout: 'index'
+                    })
+                })
+            } else {
+                res.locals = {
+                    user: user,
+                    imgList: rows
+                }
+                res.render('main', {
+                    layout: 'index'
+                })
             }
-            res.render('main', {
-                layout: 'index'
-            })
         });
     });
 
@@ -138,16 +155,19 @@ module.exports = function (server, passport, path, multer) {
         db.query('select * from usuarios where username = ? and estado = 1', [actUser], (err, rows) => {
             getFollowers(rows[0].id, (followers) => {
                 getFollowing(rows[0].id, (following) => {
-                    res.locals = {
-                        user: rows[0],
-                        imgP: rows[0].foto_perfil,
-                        bg: rows[0].foto_fondo,
-                        followers: followers,
-                        following: following
-                    }
-                    res.render('userProfile', {
-                        layout: 'index'
-                    });
+                    getImages(rows[0].id, (images) => {
+                        res.locals = {
+                            user: rows[0],
+                            imgP: rows[0].foto_perfil,
+                            bg: rows[0].foto_fondo,
+                            followers: followers,
+                            following: following,
+                            imgList: images
+                        }
+                        res.render('userProfile', {
+                            layout: 'index'
+                        });
+                    })
                 });
             });
         })
@@ -215,28 +235,32 @@ module.exports = function (server, passport, path, multer) {
     server.post('/follow', (req, res) => {
         let user = req.user;
         let f_user = req.body.id;
-        db.query('select * from follows where usuario_id = ? and follower_id = ? and estado = 1', [f_user, user.id], (err, rows) => {
-            if (rows.length > 0) {
-                db.query('update follows set estado = 0 where usuario_id = ? and follower_id = ?', [f_user, user.id], (err, rows) => {
-                    res.end('Not-Following');
-                })
-            } else {
-                db.query('select * from follows where usuario_id = ? and follower_id = ? and estado = 0', [f_user, user.id], (err, rows) => {
-                    if (rows[0].length > 0) {
-                        db.query('update follows set estado = 1 where usuario_id = ? and follower_id = ?', [f_user, user.id], (err, rows) => {
-                            res.end('Following')
-                        })
-                    } else {
-                        db.query('insert into follows(usuario_id, follower_id) values (?,?)', [f_user, user.id], (err, res) => {
-                            res.end('New-Following');
-                        });
-                    }
-                });
-            }
-        });
+        if (user.id == f_user) {
+            res.end('soledad')
+        } else {
+            db.query('select * from follows where usuario_id = ? and follower_id = ? and estado = 1', [f_user, user.id], (err, rows) => {
+                if (rows.length > 0) {
+                    db.query('update follows set estado = 0 where usuario_id = ? and follower_id = ?', [f_user, user.id], (err, rows) => {
+                        res.end('Not-Following');
+                    })
+                } else {
+                    db.query('select * from follows where usuario_id = ? and follower_id = ? and estado = 0', [f_user, user.id], (err, rows) => {
+                        if (rows.length > 0) {
+                            db.query('update follows set estado = 1 where usuario_id = ? and follower_id = ?', [f_user, user.id], (err, rows) => {
+                                res.end('Following')
+                            })
+                        } else {
+                            db.query('insert into follows(usuario_id, follower_id) values (?,?)', [f_user, user.id], (err, rows) => {
+                                res.end('New-Following');
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 
-    server.get('/logout', (req, res) => {
+    server.post('/logout', (req, res) => {
         req.logout();
         res.end('ok');
     })

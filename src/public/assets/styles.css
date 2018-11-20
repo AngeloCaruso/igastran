@@ -6,10 +6,6 @@
     width: 100%;
     height: 120px;
 }
-.inputUpdate input[type=file]{
-    opacity: 0;
-    border-bottom: 1px solid blue;
-}
 .imgContainer{
     display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -21,11 +17,30 @@
 	height: 100%;
 }
 .imgWr{
-
+    border: 1px solid #1b1b1b;
+    cursor: pointer;
 }
 .btnUpload{
     width: 100%;
 }
-.inputBuscar{
+input.inputBuscar{
+    border-radius: 50px;
+    padding-left: 10px;
+    color: #ffffff
+}
+input.inputBuscar:focus{
     background-color: #ffffff;
+}
+.mainCard{
+    box-shadow: 0 0 0 0;  
+}
+.mainImg{
+    width: 110px;
+    height: 110px;
+}
+.cardBg{
+    height: 18vh;
+}
+.fLabel{
+    border-bottom: 1px solid #454547;
 }

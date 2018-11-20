@@ -4,8 +4,7 @@
     <%- contentFor('navOptions') %>
     <%- '<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>' %>
     <%- contentFor('body') %>
-    <%- '<'+'div class="page-header header-filter clear-filter parallax" style="background-image: url('+ "/images/uploaded_images/"+ bg +');background-attachment: inherit;background-repeat: round;" data-parallax="true">'%>
-    </div>
+    <%- '<'+'div class="page-header header-filter clear-filter parallax" style="background-image: url('+ "/images/uploaded_images/"+ bg +');background-attachment: inherit;background-repeat: round;" data-parallax="true"></div>'%>
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
@@ -37,7 +36,7 @@
                                     <a class="nav-link" href="#datos" data-toggle="tab">Editar perfil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" class="nav-link btnLogout" data-toggle="tab">Cerrar
+                                    <a class="nav-link btnLogout" href="#" data-toggle="tab">Cerrar
                                         sesión</a>
                                 </li>
                             </ul>
@@ -68,30 +67,30 @@
                                             <div class="tab-pane active" id="subidas">
                                                 <div class="imgContainer mt-1 mb-1 mr-1 ml-1">
                                                     <% imgList.map(img => {%>
-                                                    <%- `<div class="imgWr cardImg mt-0 mb-0" href="/images/uploaded_images/${img.foto}"><img class="imgC" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
+                                                    <%- `<div class="imgWr cardImg mt-0 mb-0 rounded" href="/images/uploaded_images/${img.foto}"><img class="imgC rounded" src="/images/uploaded_images/${img.foto}" style="grid-column: auto/span 2"></div>`%>
                                                     <% }) %>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="mg">
-                                                <div class="section">
+                                                <div class="section pt-1 pb-1">
                                                     <div class="row">
                                                         <div class="col">
-                                                            Personas que te siguen
+                                                            <h3 class="fLabel">Personas que te siguen</h3>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <% followers.map(user =>{ %>
-                                                        <%- '<div class="col-md-6"><div class="card"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
+                                                        <%- '<div class="col-md-6"><div class="card pt-1"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
                                                         <% }) %>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            Personas a las que sigues
+                                                            <h3 class="fLabel">Personas a las que sigues</h3>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <% following.map(user =>{ %>
-                                                        <%- '<div class="col-md-6"><div class="card"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
+                                                        <%- '<div class="col-md-6"><div class="card pt-1"><img class="align-self-center f_img rounded-circle img-fluid card-img-top" src="/images/uploaded_images/'+user.fp_follower+'" alt="Generic placeholder image"><div class="media-body text-center"><h4>'+user.nombre+'</h4><p>'+user.follower+'</p></div></div></div>'%>
                                                         <% }) %>
                                                     </div>
                                                 </div>
@@ -106,60 +105,58 @@
                                     <div class="editarPerfil">
                                         <div class="row">
                                             <div class="col">
-                                                <form action="/updateProfile" method="POST" enctype="multipart/form-data">
-                                                    <label for="inputP">Haz click aquí para cargar una foto de perfil</label>
-                                                    <div class="inputUpdate">
-                                                        <input id="inputUpdate" type="file" name="updateProf" required>
-                                                    </div>
-                                                    <button class="btn btn-rose">Guardar</button>
-                                                </form>
-                                            </div>
-                                            <div class="col">
-                                                <form action="/updateBg" method="POST" enctype="multipart/form-data">
-                                                    <label for="inputBg">Haz click aquí para cargar un fondo para tu
-                                                        perfil</label>
-                                                    <div class="inputUpdate">
-                                                        <input id="inputBg" type="file" name="updateBg" required>
-                                                    </div>
-                                                    <button class="btn btn-rose">Guardar</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputName" class="bmd-label-floating">Nombre</label>
-                                                <input type="text" name="nombre" id="inputName" class="form-control">
-                                            </div>
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputApellidos" class="bmd-label-floating">Apellidos</label>
-                                                <input type="text" name="apellidos" id="inputApellidos" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group bmd-form-group col">
-                                                <label for="inputUsuario" class="bmd-label-floating">Usuario</label>
-                                                <input type="text" name="usuario" id="inputUsuario" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputPass" class="bmd-label-floating">Contraseña</label>
-                                                <input type="text" name="password" id="inputPass" class="form-control">
-                                            </div>
-                                            <div class="form-group bmd-form-group col-md-6">
-                                                <label for="inputPassConf" class="bmd-label-floating">Confirmar
-                                                    contraseña</label>
-                                                <input type="text" name="" id="inputPassConf" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col text-center">
-                                                <button class="btn btn-rose">Guardar cambios</button>
+                                                <ul class="nav nav-pills nav-pills-rose nav-pills-icons justify-content-center"
+                                                    role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" role="tab" data-toggle="tab" href="#">
+                                                            <i class="material-icons" data-toggle="modal" data-target="#updateProf">add_a_photo</i>
+                                                            Cambiar foto de perfil
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" role="tab" data-toggle="tab" href="#">
+                                                            <i class="material-icons" data-toggle="modal" data-target="#updateBg">panorama</i>
+                                                            Cambiar foto de fondo
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="updateProf" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Actualiza tu foto de perfil</h2>
+                        </div>
+                        <div class="modal-body">
+                            <form class="formUploadProf" enctype="multipart/form-data">
+                                <input type="file" name="updateProf" required>
+                                <button class="btn btn-rose btn-lg btnUpload mt-5">Subir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="updateBg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Actualiza tu foto de fondo</h2>
+                        </div>
+                        <div class="modal-body">
+                            <form class="formUploadBg" enctype="multipart/form-data">
+                                <input type="file" name="updateBg" required>
+                                <button class="btn btn-rose btn-lg btnUpload mt-5">Subir</button>
+                            </form>
                         </div>
                     </div>
                 </div>
